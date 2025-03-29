@@ -1,0 +1,12 @@
+tensorflow
+numpy
+opencv-python
+matplotlib
+pandas
+seaborn
+scikit-learn
+tensorflow-hub
+tensorflow-datasets
+tqdm
+flask
+gunicorn
