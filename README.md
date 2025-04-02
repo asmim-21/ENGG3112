@@ -1,19 +1,23 @@
 # Rubbish Classification Model
 
 ## Project Overview
-This project is a deep learning-based rubbish classification system designed to categorize waste into three categories:
+This project is a deep learning-based rubbish classification system designed to categorise waste into categories:
 - **General Waste**
-- **Organics**
 - **Recycling**
 
-A **Convolutional Neural Network (CNN)** model is trained using TensorFlow/Keras, and the model can be deployed on a **Raspberry Pi** for real-time classification.
+For proof of concept purposes, the rubbish is simply sorted into two categories, however we aim to extend this to three: 
+- **General Waste**
+- **Recycling**
+- **Organics**
+
+A **Convolutional Neural Network (CNN)** model is trained using TensorFlow/Keras, and the final model is then deployed on a **Raspberry Pi** for real-time classification.
 
 ---
 
 ## 1️⃣ Setup Instructions
 
 ### **1. Set Up a Python Virtual Environment**
-For better dependency management, set up a Python virtual environment:
+For effective dependency management, set up a Python virtual environment:
 
 ```bash
 python3 -m venv rubbish-env
@@ -52,22 +56,19 @@ If you are using a VM for training, follow these steps:
 Download and extract the dataset:
 
 ```bash
-unzip rubbish-data.zip -d dataset
+unzip rubbish-data.zip  
 ```
 This will create a folder structure:
 ```
 dataset/
 │── train/
 │   ├── general/
-│   ├── organics/
 │   ├── recycling/
 │── val/
 │   ├── general/
-│   ├── organics/
 │   ├── recycling/
 │── test/
 │   ├── general/
-│   ├── organics/
 │   ├── recycling/
 ```
 
@@ -111,7 +112,10 @@ On the Raspberry Pi, install TensorFlow Lite:
 ```bash
 pip install tflite-runtime
 ```
-Copy `rubbish_classifier.tflite` to the Raspberry Pi.
+Copy `rubbish_classifier.tflite` to the Raspberry Pi. Replace pi@raspberrypi with the Raspberry Pi’s IP address.
+```bash
+scp rubbish_classifier.tflite pi@raspberrypi:/home/pi/
+```
 
 ### **3. Run Real-Time Classification**
 Use a camera to classify waste:
