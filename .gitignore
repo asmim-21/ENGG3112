@@ -175,3 +175,7 @@ cython_debug/
 
 # Dataset files 
 rubbish-data/
+split-data/
+original_data/
+augmented/
+rubbish_classifier.h5
