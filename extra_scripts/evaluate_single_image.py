@@ -7,7 +7,7 @@ from tensorflow.keras.preprocessing import image
 # --- Configuration ---
 IMG_SIZE = (224, 224)
 MODEL_PATH = "rubbish_classifier.h5"
-IMAGE_PATH = "capture_test.jpg"  # Replace with your image filename
+IMAGE_PATH = "extra_scripts/test.jpg"  # Replace with your image filename
 
 # --- Load the trained model ---
 model = tf.keras.models.load_model(MODEL_PATH)

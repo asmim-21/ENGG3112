@@ -5,7 +5,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 # --- Settings ---
-SOURCE_DIR = "augmented"
+SOURCE_DIR = "original_data"
 DEST_DIR = "rubbish-data"
 SPLIT_RATIOS = (0.7, 0.2, 0.1)  # train, val, test
 CLASSES = ["recycling", "general", "nothing"]
