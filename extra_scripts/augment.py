@@ -9,18 +9,32 @@ from tqdm import tqdm
 INPUT_DIR = "original_data"
 OUTPUT_DIR = "augmented"
 CLASSES = ["recycling", "general", "nothing"]
-BRIGHTNESS_VARIATION = 0.30  # ±30%
+BRIGHTNESS_VARIATION = 0.20  # ±20%
+WHITE_BALANCE_VARIATION = 0.20  # ±20%
 
-# --- Helper Function ---
+# --- Helper Functions ---
 
 def adjust_brightness(img, factor):
     return np.clip(img.astype(np.float32) * factor, 0, 255).astype(np.uint8)
 
+def adjust_white_balance(img, variation):
+    img = img.astype(np.float32)
+    # Apply per-channel random variation
+    for c in range(3):  # R, G, B
+        factor = 1 + random.uniform(-variation, variation)
+        img[:, :, c] *= factor
+    return np.clip(img, 0, 255).astype(np.uint8)
+
 def augment_image(img):
     augments = []
-    for _ in range(2):
-        factor = 1 + random.uniform(-BRIGHTNESS_VARIATION, BRIGHTNESS_VARIATION)
-        augments.append(adjust_brightness(img, factor))
+    
+    # Brightness-adjusted version
+    brightness_factor = 1 + random.uniform(-BRIGHTNESS_VARIATION, BRIGHTNESS_VARIATION)
+    augments.append(adjust_brightness(img, brightness_factor))
+    
+    # White balance-adjusted version
+    augments.append(adjust_white_balance(img, WHITE_BALANCE_VARIATION))
+    
     return augments
 
 # --- Main Loop ---
@@ -47,4 +61,4 @@ for cls in CLASSES:
             out_name = f"{base_name}_aug{i}.jpg"
             cv2.imwrite(os.path.join(output_path, out_name), aug_img)
 
-print("✅ Brightness-only augmentation complete! All images saved to:", OUTPUT_DIR)
+print("✅ Brightness and white balance augmentation complete! All images saved to:", OUTPUT_DIR)

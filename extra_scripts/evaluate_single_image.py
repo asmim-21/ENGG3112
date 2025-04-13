@@ -3,10 +3,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from tensorflow.keras.preprocessing import image
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
+
+evaluate_pretrained = False
+
+if evaluate_pretrained:
+    MODEL_PATH = "rubbish_classifier2.h5"
+else:
+    MODEL_PATH = "rubbish_classifier.h5"
 
 # --- Configuration ---
 IMG_SIZE = (224, 224)
-MODEL_PATH = "rubbish_classifier.h5"
+
 IMAGE_PATH = "extra_scripts/test.jpg"  # Replace with your image filename
 
 # --- Load the trained model ---
@@ -25,6 +33,10 @@ img_array = tf.expand_dims(img_array, axis=0)  # Add batch dimension
 img_array = img_array / 255.0  # Normalize (same as training)
 
 # --- Predict ---
+if evaluate_pretrained:
+    # Apply MobileNetV2 preprocessing
+    img_array = preprocess_input(img_array)
+
 preds = model.predict(img_array)
 pred_class_index = np.argmax(preds[0])
 pred_class = class_names[pred_class_index]
