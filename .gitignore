@@ -175,6 +175,7 @@ cython_debug/
 
 # Dataset files 
 pi/images/
+augmented-rubbish-data/
 rubbish-data/
 split-data/
 original_data/

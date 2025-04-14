@@ -4,6 +4,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 from sklearn.metrics import confusion_matrix, classification_report
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
+
+evaluate_pretrained = False
+
+if evaluate_pretrained:
+    MODEL_PATH = "rubbish_classifier2.h5"
+else:
+    MODEL_PATH = "rubbish_classifier.h5"
 
 # Load test dataset
 test_dir = "rubbish-data/test"
@@ -18,7 +26,7 @@ test_dataset = image_dataset_from_directory(
 )
 
 # Load trained model
-model = tf.keras.models.load_model("rubbish_classifier.h5")
+model = tf.keras.models.load_model(MODEL_PATH)
 
 # Evaluate model
 test_loss, test_acc = model.evaluate(test_dataset)
@@ -30,6 +38,10 @@ y_pred = []
 class_names = test_dataset.class_names
 
 for images, labels in test_dataset:
+    # --- Predict ---
+    if evaluate_pretrained:
+        # Apply MobileNetV2 preprocessing
+        images = preprocess_input(images)
     preds = model.predict(images)
     y_true.extend(labels.numpy())
     y_pred.extend(np.argmax(preds, axis=1))
