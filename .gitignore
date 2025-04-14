@@ -174,7 +174,7 @@ cython_debug/
 .pypirc
 
 # Dataset files 
-pi/image/
+pi/images/
 rubbish-data/
 split-data/
 original_data/
