@@ -2,6 +2,7 @@ import cv2
 import time
 
 def take_photo():
+    print("Taking Photo")
     # Open webcam (0 = /dev/video0)
     cap = cv2.VideoCapture(0)
 
@@ -20,6 +21,9 @@ def take_photo():
         exit(1)
 
     # Save the captured image
-    filename = "captured_image.jpg"
+    filename = "test.jpg"
     cv2.imwrite(filename, frame)
     print(f"✅ Photo saved as {filename}")
+
+if __name__ == "__main__":
+    take_photo()

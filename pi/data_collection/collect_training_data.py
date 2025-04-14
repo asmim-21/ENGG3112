@@ -3,10 +3,38 @@ import os
 import time
 from datetime import datetime
 import contextlib
+import subprocess
 
 IMAGE_BASE_DIR = "original_data"
 RESOLUTION = (320, 240)
 CAMERA_INDEX = 0
+
+DEVICE = "/dev/video0"
+
+# Camera settings (adjust as needed)
+SETTINGS = {
+    "brightness": 30,
+    "contrast": 5,
+    "saturation": 83,
+    "white_balance_automatic": 1,
+    "power_line_frequency": 2,  # 2 = 60 Hz
+    "sharpness": 50,
+    "backlight_compensation": 0,
+    "auto_exposure": 1,  # Manual mode
+    "exposure_time_absolute": 21,
+    "pan_absolute": 0,
+    "tilt_absolute": 0,
+    "zoom_absolute": 0
+}
+
+def apply_camera_settings(settings, device):
+    for ctrl, val in settings.items():
+        cmd = f"v4l2-ctl -d {device} -c {ctrl}={val}"
+        try:
+            subprocess.run(cmd, shell=True, check=True, stderr=subprocess.STDOUT)
+        except subprocess.CalledProcessError as e:
+            print(f"⚠️ Failed to apply setting: {ctrl} = {val}\n{e}")
+
 
 @contextlib.contextmanager
 def suppress_stderr():
@@ -72,6 +100,9 @@ def main():
     current_index = get_next_index(folder, object_name)
 
     print("📷 Warming up camera...")
+
+    apply_camera_settings(SETTINGS, DEVICE)
+
     with suppress_stderr():
         cap = cv2.VideoCapture(CAMERA_INDEX)
 

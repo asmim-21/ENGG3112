@@ -179,3 +179,4 @@ split-data/
 original_data/
 augmented/
 rubbish_classifier.h5
+pi/rubbish_classifier.h5

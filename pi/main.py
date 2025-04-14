@@ -8,8 +8,8 @@ import time
 SERVO_PIN = 13
 
 # Timing Constants
-MOVE_TIME = 0.3  # seconds
-TIP_TIME = 1     # seconds
+MOVE_TIME = 0.2  # seconds
+TIP_TIME = 0.5     # seconds
 
 if __name__ == "__main__":
     setup_environment()
@@ -19,7 +19,6 @@ if __name__ == "__main__":
 
     try:
         while True:
-            time.sleep(1)
             print("Centering...")
             center_servo(pi, SERVO_PIN, MOVE_TIME, TIP_TIME)
 

@@ -6,7 +6,7 @@ import time
 LED_PIN = board.D18            # GPIO18 (PWM0)
 NUM_LEDS = 5                   # Number of LEDs in the strip
 LED_BRIGHTNESS = 0.5           # Between 0.0 (off) and 1.0 (max)
-LED_COLOR = (255, 255, 255)    # RGB for white
+LED_COLOR = (255, 255, 180)    # RGB for white
 
 # ----- Setup -----
 pixels = neopixel.NeoPixel(

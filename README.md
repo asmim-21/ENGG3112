@@ -108,13 +108,15 @@ python convert_to_tflite.py
 This generates `rubbish_classifier.tflite`.
 
 ### **2. Set Up Raspberry Pi**
-On the Raspberry Pi, install TensorFlow Lite:
-```bash
-pip install tflite-runtime
+Noah will write this part:
+
 ```
-Copy `rubbish_classifier.tflite` to the Raspberry Pi. Replace pi@raspberrypi with the Raspberry Pi’s IP address.
-```bash
-scp rubbish_classifier.tflite pi@raspberrypi:/home/pi/
+source venv/bin/activate # Virtual Environment
+sudo pigpiod  # Start the daemon
+sudo venv/bin/python leds.py # Lights
+python main.py # Main Program
+
+python servo_test_2.py # Testing servo
 ```
 
 ### **3. Run Real-Time Classification**
